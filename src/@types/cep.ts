@@ -6,4 +6,5 @@ export interface Cep {
   localidade: string;
   uf: string;
   erro?: string;
+  
 }
