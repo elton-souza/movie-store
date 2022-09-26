@@ -20,3 +20,11 @@ export const getListMovies = (
 
 export const getListGenres = (): Promise<AxiosResponse<Genre>> =>
   movieApi.get("/genre/movie/list");
+
+export const searchMovies = (search: string, page: number): Promise<AxiosResponse<MovieInfo>> =>
+  movieApi.get("/search/movie", {
+    params: {
+      query: search,
+      page,
+    },
+  });
