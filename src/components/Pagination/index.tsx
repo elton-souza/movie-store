@@ -3,7 +3,7 @@ import { Pagination } from "semantic-ui-react";
 interface PaginationProps {
   activePage: number;
   totalPages: number;
-  setActivePage: (value: any) => void;
+  setActivePage: (value: number) => void;
 }
 
 export default function Paginate({

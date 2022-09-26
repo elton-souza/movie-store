@@ -1,15 +1,11 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 import { MovieInfo, Genre, Movie } from "../../@types/movies";
-import {
-  getListGenres,
-  getListMovies,
-  searchMovies,
-} from "../../services/movie";
-import MovieCard from "../../components/MovieCard";
-import { MoviesList, Main, BoxPaginate } from "../Home/styles";
+import { getListGenres, searchMovies } from "../../services/movie";
+import { Main, BoxPaginate } from "../Home/styles";
 import Paginate from "../../components/Pagination";
 import { Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
+import MovieList from "../../components/MovieList";
 
 export default function SearchMovie() {
   const [movies, setMovies] = useState<MovieInfo>();
@@ -19,11 +15,11 @@ export default function SearchMovie() {
   const [pageActive, setPageActive] = useState(1);
   const { query } = useParams<{ query: string }>();
 
-
   const search = async (page: number) => {
     setLoading(true);
     try {
       const { data } = await searchMovies(query, page);
+      console.log(data);
       setMovies(data);
       setMoviesList([
         ...data.results.map((value) => ({
@@ -50,17 +46,10 @@ export default function SearchMovie() {
     }
   };
 
-  const handleChangePageActive = (value: any) => {
-    setPageActive(value);
-  };
-
   useEffect(() => {
     search(pageActive);
-  }, [pageActive]);
-
-  useEffect(() => {
     getGenres();
-  }, []);
+  }, [pageActive]);
 
   return (
     <>
@@ -69,22 +58,16 @@ export default function SearchMovie() {
           <Loader active inline="centered" style={{ marginTop: 100 }} />
         ) : (
           <>
-            {movies && listGenres && moviesList && pageActive && (
+            {movies && listGenres && (
               <>
-                <MoviesList>
-                  {moviesList.map((movie, index) => (
-                    <MovieCard
-                      key={index}
-                      movie={movie}
-                      listGenres={listGenres}
-                    />
-                  ))}
-                </MoviesList>
+                {moviesList.length > 0 && (
+                  <MovieList moviesList={moviesList} listGenres={listGenres} />
+                )}
                 <BoxPaginate>
                   <Paginate
                     activePage={pageActive}
                     totalPages={movies.total_pages}
-                    setActivePage={handleChangePageActive}
+                    setActivePage={setPageActive}
                   />
                 </BoxPaginate>
               </>

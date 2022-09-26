@@ -7,17 +7,6 @@ export const Main = styled.main`
   padding: 50px 0px;
 `;
 
-export const MoviesList = styled.section`
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 50px;
-  padding-bottom: 50px;
-  margin-top: 80px;
-`;
-
 export const BoxPaginate = styled.div`
   width: 100%;
   display: flex;

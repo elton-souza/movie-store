@@ -1,6 +1,17 @@
 import styled from "styled-components";
 import { colors } from "../../styles/color";
 
+export const List = styled.section`
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  padding-bottom: 50px;
+  margin-top: 80px;
+`;
+
 export const Card = styled.div`
   width: 200px;
   min-height: 550px;

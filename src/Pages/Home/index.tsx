@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { MovieInfo, Genre, Movie } from "../../@types/movies";
 import { getListGenres, getListMovies } from "../../services/movie";
-import MovieCard from "../../components/MovieCard";
-import { MoviesList, Main, BoxPaginate } from "./styles";
+import MovieCard from "../../components/MovieList";
+import { Main, BoxPaginate } from "./styles";
 import Paginate from "../../components/Pagination";
 import { Loader } from "semantic-ui-react";
+import MovieList from "../../components/MovieList";
 
 export default function Home() {
   const [movies, setMovies] = useState<MovieInfo>();
@@ -31,7 +32,6 @@ export default function Home() {
     }
   };
 
-  console.log('oi')
 
   const getGenres = async () => {
     try {
@@ -62,34 +62,28 @@ export default function Home() {
 
   return (
     <>
-      <Main>
-        {loading ? (
-          <Loader active inline="centered" style={{ marginTop: 100 }} />
-        ) : (
-          <>
-            {movies && listGenres && moviesList && (
-              <>
-                <MoviesList>
-                  {moviesList.map((movie, index) => (
-                    <MovieCard
-                      key={index}
-                      movie={movie}
-                      listGenres={listGenres}
-                    />
-                  ))}
-                </MoviesList>
-                <BoxPaginate>
-                  <Paginate
-                    activePage={pageActive}
-                    totalPages={movies.total_pages}
-                    setActivePage={handleChangePageActive}
-                  />
-                </BoxPaginate>
-              </>
-            )}
-          </>
-        )}
-      </Main>
-    </>
+    <Main>
+      {loading ? (
+        <Loader active inline="centered" style={{ marginTop: 100 }} />
+      ) : (
+        <>
+          {movies && listGenres && (
+            <>
+              {moviesList.length > 0 && (
+                <MovieList moviesList={moviesList} listGenres={listGenres} />
+              )}
+              <BoxPaginate>
+                <Paginate
+                  activePage={pageActive}
+                  totalPages={movies.total_pages}
+                  setActivePage={setPageActive}
+                />
+              </BoxPaginate>
+            </>
+          )}
+        </>
+      )}
+    </Main>
+  </>
   );
 }
