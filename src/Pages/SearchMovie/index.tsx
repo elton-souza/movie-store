@@ -1,22 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MovieInfo, Genre, Movie } from "../../@types/movies";
-import { getListGenres, getListMovies } from "../../services/movie";
+import {
+  getListGenres,
+  getListMovies,
+  searchMovies,
+} from "../../services/movie";
 import MovieCard from "../../components/MovieCard";
-import { MoviesList, Main, BoxPaginate } from "./styles";
+import { MoviesList, Main, BoxPaginate } from "../Home/styles";
 import Paginate from "../../components/Pagination";
 import { Loader } from "semantic-ui-react";
+import { useParams } from "react-router-dom";
 
-export default function Home() {
+export default function SearchMovie() {
   const [movies, setMovies] = useState<MovieInfo>();
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
   const [listGenres, setListGenres] = useState<Genre>();
-  const [pageActive, setPageActive] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [pageActive, setPageActive] = useState(1);
+  const { query } = useParams<{ query: string }>();
 
-  const getMovies = async () => {
+
+  const search = async (page: number) => {
+    setLoading(true);
     try {
-      setLoading(true);
-      const { data } = await getListMovies(pageActive);
+      const { data } = await searchMovies(query, page);
       setMovies(data);
       setMoviesList([
         ...data.results.map((value) => ({
@@ -31,11 +38,9 @@ export default function Home() {
     }
   };
 
-  console.log('oi')
-
   const getGenres = async () => {
+    setLoading(true);
     try {
-      setLoading(true);
       const { data } = await getListGenres();
       setListGenres(data);
     } catch (error) {
@@ -44,19 +49,16 @@ export default function Home() {
       setLoading(false);
     }
   };
-  
+
   const handleChangePageActive = (value: any) => {
     setPageActive(value);
   };
 
   useEffect(() => {
-    if (pageActive) {
-      getMovies();
-    }
+    search(pageActive);
   }, [pageActive]);
 
   useEffect(() => {
-    getMovies();
     getGenres();
   }, []);
 
@@ -67,7 +69,7 @@ export default function Home() {
           <Loader active inline="centered" style={{ marginTop: 100 }} />
         ) : (
           <>
-            {movies && listGenres && moviesList && (
+            {movies && listGenres && moviesList && pageActive && (
               <>
                 <MoviesList>
                   {moviesList.map((movie, index) => (

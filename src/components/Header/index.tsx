@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Icon, Input } from "semantic-ui-react";
-import { MovieContext } from "../../context/movieContext";
 import { StoreContext } from "../../context/storeContext";
 import SidebarCustom from "../Sidebar";
 import {
@@ -10,16 +9,15 @@ import {
   HeaderCustomized,
   IconCart,
   IconFavorite,
-  InputSearch,
   Logo,
 } from "./styles";
 
 export default function Header() {
   const { cart } = useContext(StoreContext);
-  const { search: newSearch } = useContext(MovieContext)
   const [typeSidebar, setTypeSidebar] = useState<"cart" | "favorite">();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [search, setSearch] = useState("");
+  const history = useHistory();
 
   const controlSidebar = (type?: "cart" | "favorite") => {
     setOpenSidebar((state) => !state);
@@ -38,7 +36,7 @@ export default function Header() {
           <Input
             icon={
               <Icon
-                onClick={() => newSearch(search, 1)}
+                onClick={() => history.push(`/results/query=${search}`)}
                 name="search"
                 inverted
                 circular
