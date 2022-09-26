@@ -49,7 +49,7 @@ export default function SearchMovie() {
   useEffect(() => {
     search(pageActive);
     getGenres();
-  }, [pageActive]);
+  }, [pageActive, query]);
 
   return (
     <>

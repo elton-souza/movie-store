@@ -20,12 +20,17 @@ export default function Paginate({
 
   return (
     <Pagination
+      defaultActivePage={1}
       activePage={activePage}
       onPageChange={handlePaginationChange}
+      showFirstAndLastNav={true}
       ellipsisItem={null}
       firstItem={null}
       lastItem={null}
       totalPages={totalPages}
-    />
+      
+    >
+      <Pagination.Item active style={{ color: "blue" }} />
+    </Pagination>
   );
 }
