@@ -2,8 +2,10 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { useContext } from "react";
 import { BsStar, BsStarFill } from "react-icons/bs";
+import { MdError } from "react-icons/md";
 import { Genre, Movie } from "../../@types/movies";
 import { StoreContext } from "../../context/storeContext";
+import { colors } from "../../styles/color";
 import {
   BoxIcon,
   ButtonBuy,
@@ -16,6 +18,7 @@ import {
   MovieRated,
   MovieTitle,
   List,
+  BoxIconError,
 } from "./styles";
 
 interface MovieCardProps {
@@ -49,11 +52,9 @@ export default function MovieList({ moviesList, listGenres }: MovieCardProps) {
 
   return (
     <List>
-      {moviesList.map((movie, index) => (
-        <Card>
-          <MovieImage
-            image={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          >
+      {moviesList.map((movie) => (
+        <Card key={movie?.id}>
+          <MovieImage image={movie?.poster_path}>
             <BoxIcon>
               <div
                 className="roudend"
@@ -68,10 +69,26 @@ export default function MovieList({ moviesList, listGenres }: MovieCardProps) {
                 )}
               </div>
             </BoxIcon>
+            {!movie?.poster_path && (
+              <BoxIconError>
+                <MdError color={colors.text} size={30} />
+                <p className="error">Imagem não encontrada :(</p>
+              </BoxIconError>
+            )}
             <MovieData>
-              {format(new Date(movie?.release_date), "dd 'de' MMMM 'de' yyyy", {
-                locale: ptBR,
-              })}
+              {movie?.release_date ? (
+                <>
+                  {format(
+                    new Date(movie?.release_date),
+                    "dd 'de' MMMM 'de' yyyy",
+                    {
+                      locale: ptBR,
+                    }
+                  )}
+                </>
+              ) : (
+                "Data não informada"
+              )}
             </MovieData>
           </MovieImage>
           <div className="box-info">
@@ -80,7 +97,7 @@ export default function MovieList({ moviesList, listGenres }: MovieCardProps) {
               <BsStarFill className="icon" />
               {movie?.vote_average}
             </MovieRated>
-            {MovieListGenres(movie.genre_ids)}
+            {MovieListGenres(movie?.genre_ids)}
             <MoviePrice>R$ {movie?.price.toFixed(2)}</MoviePrice>
           </div>
           <ButtonBuy onClick={() => setNewItemCart(movie)}>Adicionar</ButtonBuy>

@@ -60,9 +60,7 @@ export default function SearchMovie() {
           <>
             {movies && listGenres && (
               <>
-                {moviesList.length > 0 && (
-                  <MovieList moviesList={moviesList} listGenres={listGenres} />
-                )}
+                <MovieList moviesList={moviesList} listGenres={listGenres} />
                 <BoxPaginate>
                   <Paginate
                     activePage={pageActive}

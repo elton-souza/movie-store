@@ -34,7 +34,10 @@ export const Card = styled.div`
 export const MovieImage = styled.div<{ image: string }>`
   width: 100%;
   min-height: 300px;
-  background-image: url(${(props) => props.image});
+  background-image: ${(props) =>
+    props.image !== null
+      ? `url(https://image.tmdb.org/t/p/original/${props.image})`
+      : `none`};
   background-repeat: no-repeat;
   background-position: center top;
   background-size: 100% 100%;
@@ -42,6 +45,19 @@ export const MovieImage = styled.div<{ image: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+`;
+
+export const BoxIconError = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 40px;
+  .error {
+    font-size: 14px;
+    color: ${colors.text};
+  }
 `;
 
 export const MovieData = styled.span`
