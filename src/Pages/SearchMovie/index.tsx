@@ -6,6 +6,7 @@ import Paginate from "../../components/Pagination";
 import { Loader } from "semantic-ui-react";
 import { useParams } from "react-router-dom";
 import MovieList from "../../components/MovieList";
+import { NoResults } from "./style";
 
 export default function SearchMovie() {
   const [movies, setMovies] = useState<MovieInfo>();
@@ -58,7 +59,7 @@ export default function SearchMovie() {
           <Loader active inline="centered" style={{ marginTop: 100 }} />
         ) : (
           <>
-            {movies && listGenres && (
+            {movies && listGenres && moviesList.length > 0 ? (
               <>
                 <MovieList moviesList={moviesList} listGenres={listGenres} />
                 <BoxPaginate>
@@ -69,6 +70,10 @@ export default function SearchMovie() {
                   />
                 </BoxPaginate>
               </>
+            ): (
+              <NoResults>
+                <span className="warning">Sem resultados!</span>
+              </NoResults>
             )}
           </>
         )}

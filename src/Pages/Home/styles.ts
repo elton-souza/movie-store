@@ -11,4 +11,5 @@ export const BoxPaginate = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  pad: 0px 20px;
 `;

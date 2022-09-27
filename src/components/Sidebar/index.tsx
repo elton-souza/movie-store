@@ -9,6 +9,7 @@ import {
   BoxTitle,
   ButtonAction,
   BuyInfo,
+  CustomSidebar,
   DeleteIcon,
   IconCart,
   Item,
@@ -23,8 +24,7 @@ interface SidebarProps {
   type: "cart" | "favorite" | undefined;
   open: boolean;
   controlSidebar: (
-    type?: "cart" | "favorite" | undefined,
-    status?: boolean
+    type?: "cart" | "favorite" | undefined
   ) => void;
 }
 export default function SidebarCustom({
@@ -52,31 +52,39 @@ export default function SidebarCustom({
   }, [cart]);
 
   return (
-    <Sidebar
+    <CustomSidebar
       animation="push"
       icon="labeled"
       inverted
-      onHide={() => controlSidebar()}
+      onHide={controlSidebar}
       vertical
       visible={open}
       width="wide"
       direction="right"
-      style={{
-        top: 80,
-        backgroundColor: colors.backgroundSecundary,
-        padding: "10px",
-      }}
     >
       <BoxTitle>
         <Title>
           {type === "cart" && "Meu Carrinho"}
           {type === "favorite" && "Meus Favoritos"}
         </Title>
-        {type === "cart" && cart.length > 0 && (
-          <ButtonAction onClick={() => clearCart()}>Esvaziar</ButtonAction>
+        {type === "cart" && (
+          <div>
+            {cart.length > 0 && (
+              <ButtonAction onClick={() => clearCart()}>Esvaziar</ButtonAction>
+            )}
+            <ButtonAction onClick={() => controlSidebar()}>Fechar</ButtonAction>
+          </div>
         )}
-        {type === "favorite" && favorites.length > 0 && (
-          <ButtonAction onClick={() => clearFavorites()}>Esvaziar</ButtonAction>
+        {type === "favorite" && (
+          <div>
+            {favorites.length > 0 && (
+              <ButtonAction onClick={() => clearFavorites()}>
+                Esvaziar
+              </ButtonAction>
+            )}
+
+            <ButtonAction onClick={() => controlSidebar()}>Fechar</ButtonAction>
+          </div>
         )}
       </BoxTitle>
       <BoxItems>
@@ -128,7 +136,7 @@ export default function SidebarCustom({
                 </BuyInfo>
               </>
             ) : (
-              <Warning>Sem items no carrinho adicionado</Warning>
+              <Warning>Sem items no carrinho</Warning>
             )}
           </>
         )}
@@ -182,11 +190,11 @@ export default function SidebarCustom({
                 ))}
               </ListItem>
             ) : (
-              <Warning>Sem favoritos adicionados</Warning>
+              <Warning>Sem favoritos adicionado</Warning>
             )}
           </>
         )}
       </BoxItems>
-    </Sidebar>
+    </CustomSidebar>
   );
 }

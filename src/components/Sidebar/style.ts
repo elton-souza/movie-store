@@ -1,7 +1,19 @@
 import { FaShoppingCart } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Popup, Sidebar } from "semantic-ui-react";
 import styled from "styled-components";
 import { colors } from "../../styles/color";
+
+export const CustomSidebar = styled(Sidebar)`
+  top: 80px !important;
+  background-color: ${colors.backgroundSecundary};
+  padding: 10px;
+
+  @media screen and (max-width: 720px) {
+    width: 100vw !important;
+    padding: 10px 30px;
+  }
+`;
 
 export const BoxTitle = styled.div`
   display: flex;
@@ -113,4 +125,30 @@ export const Warning = styled.p`
   color: ${colors.text};
   text-align: center;
   padding-top: 50px;
+`;
+
+export const BoxActionMobile = styled.div`
+  display: none;
+  @media screen and (max-width: 720px) {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+  }
+`;
+
+export const IconSearch = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${colors.primary};
+  cursor: pointer;
+
+  .icon-search {
+    width: 20px;
+    height: 20px;
+    color: ${colors.text};
+  }
 `;
