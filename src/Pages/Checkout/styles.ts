@@ -7,7 +7,6 @@ export const Main = styled.main`
   width: 100%;
   margin: 0 auto;
   padding: 50px 0px;
-
 `;
 
 export const Title = styled.h3`
@@ -21,12 +20,33 @@ export const Form = styled.form`
   display: flex;
   gap: 100px;
   align-items: flex-start;
+  padding: 10px 20px;
 
   .box-movies {
     flex: 1;
     margin-top: 80px;
     display: flex;
     flex-direction: column;
+  }
+
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+    gap: 80px;
+
+    .box-movies {
+      width: 100%;
+      margin-top: 0px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .mobile-text {
+      font-size: 12px;
+    }
+
+    .mobile-price {
+      padding: 0px !important;
+    }
   }
 `;
 
@@ -43,6 +63,11 @@ export const DeleteIcon = styled(MdDelete)`
   height: 25px;
   color: ${colors.primary};
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    width: 18px;
+    height: 18px;
+  }
 `;
 
 export const Warning = styled.div`
@@ -66,20 +91,22 @@ export const BuyInfo = styled.div`
   gap: 20px;
   margin-top: 50px;
   padding-bottom: 80px;
+
   .value-info {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: ${colors.text};
-
-    .total {
-      font-size: 20px;
-    }
-
-    .price {
-      font-size: 30px;
-    }
   }
+
+  .total {
+    font-size: 20px;
+  }
+
+  .price {
+    font-size: 30px;
+  }
+
   .button-buy {
     background-color: ${colors.primary};
     border: none;
@@ -90,6 +117,20 @@ export const BuyInfo = styled.div`
     font-weight: bold;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 600px) {
+    .total {
+      font-size: 18px;
+    }
+
+    .price {
+      font-size: 25px;
+    }
+
+    .button-buy {
+      font-size: 18px;
+    }
+  }
 `;
 
 export const BackButton = styled.button`
@@ -97,9 +138,14 @@ export const BackButton = styled.button`
   font-size: 18px;
   color: ${colors.backgroundSecundary};
   padding: 5px 50px;
+  font-weight: 600;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    font-size: 16px;
+  }
 `;
 
 export const Content = styled.div`
@@ -117,5 +163,17 @@ export const Content = styled.div`
   }
   .confirmed {
     font-size: 18px;
+  }
+
+  @media screen and (max-width: 600px) {
+    .congrats {
+      font-size: 18px;
+    }
+    .name {
+      font-size: 15px;
+    }
+    .confirmed {
+      font-size: 15px;
+    }
   }
 `;

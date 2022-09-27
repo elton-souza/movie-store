@@ -132,7 +132,7 @@ export const BoxActionMobile = styled.div`
   @media screen and (max-width: 720px) {
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 20px;
   }
 `;
 

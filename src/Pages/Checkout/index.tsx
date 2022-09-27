@@ -204,7 +204,7 @@ export default function Checkout() {
             </Grid.Row>
           </Grid>
           <div className="box-movies">
-            <Table unstackable inverted>
+            <Table unstackable inverted className="mobile-text">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>Imagem</Table.HeaderCell>
@@ -232,7 +232,7 @@ export default function Checkout() {
                       {movie.title}
                     </Table.Cell>
                     <Table.Cell verticalAlign="middle">{1}</Table.Cell>
-                    <Table.Cell verticalAlign="middle">
+                    <Table.Cell verticalAlign="middle" className="mobile-price">
                       R$ {movie.price.toFixed(2)}
                     </Table.Cell>
                     <Table.Cell verticalAlign="middle">
